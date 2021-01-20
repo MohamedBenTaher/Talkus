@@ -1953,6 +1953,12 @@ __webpack_require__.r(__webpack_exports__);
       signup: '/signup'
     };
   },
+
+  /*mounted(){
+      if(User.isLogged()){
+          this.$router.push({name:'home'});
+      }
+  },*/
   methods: {
     showAndHidden: function showAndHidden() {
       if (document.querySelector('p').innerHTML == "show password") {
@@ -1963,12 +1969,41 @@ __webpack_require__.r(__webpack_exports__);
         document.querySelector('p').innerHTML = "show password";
       }
     },
-    login: function login() {
+    login: function login(e) {
+      var _this = this;
+
+      e.preventDefault();
+
       if (!this.password || !this.email) {
         var err = document.getElementById('err');
         err.innerHTML = "Veulliez remplir tous les champs necessaire.";
         return;
       }
+
+      axios.post('/api/users/login', {
+        email: this.email,
+        password: this.password
+      }).then(function (res) {
+        console.log(res.data);
+        _this.err = '';
+
+        if (!res.data.error) {
+          User.storeUser(JSON.stringify(res.data));
+
+          _this.$router.push('/');
+
+          _this.refresh();
+        } else {
+          var _err = document.getElementById('err');
+
+          _err.innerHTML = res.data.error;
+        }
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    refresh: function refresh() {
+      this.$router.go();
     }
   }
 });
@@ -2038,6 +2073,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2045,8 +2095,22 @@ __webpack_require__.r(__webpack_exports__);
       signup: '/signup',
       login: '/login',
       contacts: '/contacts',
-      messages: '/messages'
+      messages: '/messages',
+      logged: User.isLogged().logged,
+      user_name: User.isLogged().name,
+      isAdmin: User.isAdmin()
     };
+  },
+  methods: {
+    userLogout: function userLogout() {
+      User.logout();
+      this.logged = false;
+      console.log(this.logged);
+      this.$router.push({
+        name: 'login'
+      });
+      this.$router.go();
+    }
   }
 });
 
@@ -2093,6 +2157,13 @@ __webpack_require__.r(__webpack_exports__);
       password: ''
     };
   },
+  mounted: function mounted() {
+    if (User.isLogged()) {
+      this.$router.push({
+        name: 'home'
+      });
+    }
+  },
   methods: {
     showAndHidden: function showAndHidden() {
       if (document.querySelector('p').innerHTML == "show password") {
@@ -2102,6 +2173,33 @@ __webpack_require__.r(__webpack_exports__);
         document.getElementById('password').type = "password";
         document.querySelector('p').innerHTML = "show password";
       }
+    },
+    inscription: function inscription() {
+      var _this = this;
+
+      if (!this.name || !this.password || !this.email) {
+        var err = document.getElementById('err');
+        err.innerHTML = "Veulliez remplir tous les champs necessaire.";
+        return;
+      }
+
+      axios.post('/api/users/signup', {
+        name: this.name,
+        email: this.email,
+        password: this.password
+      }).then(function (res) {
+        console.log(res.data);
+        User.storeUser(JSON.stringify(res.data));
+
+        _this.$router.push('/');
+
+        _this.refresh();
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    refresh: function refresh() {
+      this.$router.go();
     }
   }
 });
@@ -38332,7 +38430,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
+  return _c("div", { staticClass: "container mt-5" }, [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12 mt-5" }, [
         _c("div", { staticClass: "card shadow" }, [
@@ -38416,9 +38514,14 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("center", { staticClass: "pt-2" }, [
-                    _c("button", { staticClass: "btn btn-block btn-primary" }, [
-                      _vm._v("Connection")
-                    ])
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-block btn-primary",
+                        on: { click: _vm.login }
+                      },
+                      [_vm._v("Connection")]
+                    )
                   ]),
                   _vm._v(" "),
                   _c(
@@ -38534,11 +38637,13 @@ var render = function() {
               "li",
               { staticClass: "nav-item active" },
               [
-                _c(
-                  "router-link",
-                  { staticClass: "nav-link", attrs: { to: _vm.home } },
-                  [_vm._v("Actualities")]
-                )
+                _vm.logged
+                  ? _c(
+                      "router-link",
+                      { staticClass: "nav-link", attrs: { to: _vm.home } },
+                      [_vm._v("Actualities")]
+                    )
+                  : _vm._e()
               ],
               1
             ),
@@ -38547,11 +38652,13 @@ var render = function() {
               "li",
               { staticClass: "nav-item active" },
               [
-                _c(
-                  "router-link",
-                  { staticClass: "nav-link", attrs: { to: _vm.signup } },
-                  [_vm._v("Signup")]
-                )
+                !_vm.logged
+                  ? _c(
+                      "router-link",
+                      { staticClass: "nav-link", attrs: { to: _vm.signup } },
+                      [_vm._v("Signup")]
+                    )
+                  : _vm._e()
               ],
               1
             ),
@@ -38560,11 +38667,13 @@ var render = function() {
               "li",
               { staticClass: "nav-item active" },
               [
-                _c(
-                  "router-link",
-                  { staticClass: "nav-link", attrs: { to: _vm.login } },
-                  [_vm._v("Login")]
-                )
+                !_vm.logged
+                  ? _c(
+                      "router-link",
+                      { staticClass: "nav-link", attrs: { to: _vm.login } },
+                      [_vm._v("Login")]
+                    )
+                  : _vm._e()
               ],
               1
             ),
@@ -38573,11 +38682,13 @@ var render = function() {
               "li",
               { staticClass: "nav-item active ml-1" },
               [
-                _c(
-                  "router-link",
-                  { staticClass: "nav-link", attrs: { to: _vm.contacts } },
-                  [_vm._v("My Contacts")]
-                )
+                _vm.logged
+                  ? _c(
+                      "router-link",
+                      { staticClass: "nav-link", attrs: { to: _vm.contacts } },
+                      [_vm._v("My Contacts")]
+                    )
+                  : _vm._e()
               ],
               1
             ),
@@ -38586,14 +38697,66 @@ var render = function() {
               "li",
               { staticClass: "nav-item active ml-1" },
               [
-                _c(
-                  "router-link",
-                  { staticClass: "nav-link", attrs: { to: _vm.messages } },
-                  [_vm._v("My Messages")]
-                )
+                _vm.logged
+                  ? _c(
+                      "router-link",
+                      { staticClass: "nav-link", attrs: { to: _vm.messages } },
+                      [_vm._v("My Messages")]
+                    )
+                  : _vm._e()
               ],
               1
-            )
+            ),
+            _vm._v(" "),
+            _vm.logged
+              ? _c("li", { staticClass: "nav-item dropdown" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nav-link dropdown-toggle",
+                      attrs: {
+                        href: "#",
+                        id: "navbarDropdown",
+                        role: "button",
+                        "data-toggle": "dropdown",
+                        "aria-haspopup": "true",
+                        "aria-expanded": "false"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n          " +
+                          _vm._s(_vm.user_name.toUpperCase()) +
+                          "\n        "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "dropdown-menu",
+                      attrs: { "aria-labelledby": "navbarDropdown" }
+                    },
+                    [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "dropdown-item",
+                          staticStyle: { cursor: "pointer" },
+                          on: { click: _vm.userLogout }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-sign-out-alt mr-1" }),
+                          _vm._v("Logout")
+                        ]
+                      )
+                    ]
+                  )
+                ])
+              : _vm._e()
           ])
         ]
       )
@@ -38621,6 +38784,15 @@ var staticRenderFns = [
       },
       [_c("span", { staticClass: "navbar-toggler-icon" })]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fas fa-user mr-1" }),
+      _vm._v(" Profile")
+    ])
   }
 ]
 render._withStripped = true
@@ -38646,7 +38818,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row mt-3" }, [
+    _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12 mt-5" }, [
         _c("div", { staticClass: "card shadow" }, [
           _vm._m(0),
@@ -38754,9 +38926,14 @@ var render = function() {
                 }),
                 _vm._v(" "),
                 _c("center", { staticClass: "pt-2" }, [
-                  _c("button", { staticClass: "btn btn-block btn-primary" }, [
-                    _vm._v("S'inscrire")
-                  ])
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-block btn-primary",
+                      on: { click: _vm.inscription }
+                    },
+                    [_vm._v("S'inscrire")]
+                  )
                 ])
               ],
               1
