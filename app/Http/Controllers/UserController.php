@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contact;
 use auth;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,13 +15,26 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'phone' => $request->phone,
+            'department_id' => $request->department_id,
             'password' => Hash::make($request->password)
         ]);
+
+        //Contact::create([
+           /* 'id' => $user->id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'department_id' => $request->department_id,
+            'password' => Hash::make($request->password)
+        ]);*/
 
         return response()->json([
             'logged' => true,
             'id' => $user->id,
             'name' => $user->name,
+            'phone' => $user->phone,
+            'department' => $user->department->name,
             'created_at' => $user->created_at,
             'admin' => $user->isAdmin
         ]);

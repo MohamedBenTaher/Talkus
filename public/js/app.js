@@ -2088,6 +2088,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2149,12 +2150,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       name: '',
       email: '',
-      password: ''
+      password: '',
+      phone: "",
+      departments: "",
+      department_id: ""
     };
   },
   mounted: function mounted() {
@@ -2163,6 +2172,15 @@ __webpack_require__.r(__webpack_exports__);
         name: 'home'
       });
     }
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get('/api/departments').then(function (res) {
+      _this.departments = res.data;
+    })["catch"](function (err) {
+      return console.log(err);
+    });
   },
   methods: {
     showAndHidden: function showAndHidden() {
@@ -2175,9 +2193,9 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     inscription: function inscription() {
-      var _this = this;
+      var _this2 = this;
 
-      if (!this.name || !this.password || !this.email) {
+      if (!this.name || !this.password || !this.email || !this.phone || !this.department_id) {
         var err = document.getElementById('err');
         err.innerHTML = "Veulliez remplir tous les champs necessaire.";
         return;
@@ -2186,14 +2204,16 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/api/users/signup', {
         name: this.name,
         email: this.email,
-        password: this.password
+        password: this.password,
+        phone: this.phone,
+        department_id: this.department_id
       }).then(function (res) {
         console.log(res.data);
         User.storeUser(JSON.stringify(res.data));
 
-        _this.$router.push('/');
+        _this2.$router.push('/');
 
-        _this.refresh();
+        _this2.refresh();
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -38620,11 +38640,17 @@ var render = function() {
     "nav",
     { staticClass: "navbar navbar-expand-lg navbar-light bg-info" },
     [
-      _c(
-        "router-link",
-        { staticClass: "navbar-brand", attrs: { to: _vm.home } },
-        [_vm._v("Talkus")]
-      ),
+      _vm.logged
+        ? _c(
+            "router-link",
+            { staticClass: "navbar-brand", attrs: { to: _vm.home } },
+            [_vm._v("Talkus")]
+          )
+        : _c(
+            "router-link",
+            { staticClass: "navbar-brand", attrs: { to: _vm.login } },
+            [_vm._v("Talkus")]
+          ),
       _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
@@ -38879,6 +38905,82 @@ var render = function() {
                     }
                   }
                 }),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.phone,
+                      expression: "phone"
+                    }
+                  ],
+                  staticClass: "form-control my-1",
+                  attrs: {
+                    type: "text",
+                    placeholder: "numéro de téléphone...",
+                    required: ""
+                  },
+                  domProps: { value: _vm.phone },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.phone = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.department_id,
+                        expression: "department_id"
+                      }
+                    ],
+                    staticClass: "custom-select my-1 mr-sm-2",
+                    attrs: { id: "inlineFormCustomSelectPref" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.department_id = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "option",
+                      { attrs: { disabled: "", selected: "", value: "" } },
+                      [_vm._v("Domaine professionel")]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(_vm.departments, function(department) {
+                      return _c(
+                        "option",
+                        {
+                          key: department.id,
+                          domProps: { value: department.id }
+                        },
+                        [_vm._v(_vm._s(department.name))]
+                      )
+                    })
+                  ],
+                  2
+                ),
                 _vm._v(" "),
                 _c("input", {
                   directives: [

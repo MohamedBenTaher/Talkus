@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DepartmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -21,3 +22,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/users/signup',[UserController::class,'Signup']);
 Route::post('/users/login',[UserController::class,'Login']);
+Route::get('/departments',[DepartmentController::class,'index']);
