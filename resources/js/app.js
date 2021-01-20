@@ -5,8 +5,10 @@
  */
 
 require('./bootstrap');
+import User from './helpers/User';
 
 window.Vue = require('vue').default;
+window.User = User;
 
 /**
  * The following block of code may be used to automatically register your
