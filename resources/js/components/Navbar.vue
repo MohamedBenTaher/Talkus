@@ -33,7 +33,7 @@
           {{user_name.toUpperCase()}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#"><i class="fas fa-user mr-1"></i> Profile</a>
+          <router-link :to="profile" class="ml-4"><i class="fas fa-user mr-1"></i> Profile</router-link>
           <a class="dropdown-item" style="cursor:pointer" @click="userLogout"><i class="fas fa-sign-out-alt mr-1"></i>Logout</a>
         </div>
       </li>
@@ -52,6 +52,7 @@ export default {
             login:'/login',
             contacts:'/contacts',
             messages:'/messages',
+            profile:`/users/${User.getUser().id}`,
             logged:User.isLogged().logged,
             user_name:User.isLogged().name,
             isAdmin: User.isAdmin()

@@ -22,4 +22,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/users/signup',[UserController::class,'Signup']);
 Route::post('/users/login',[UserController::class,'Login']);
+Route::get('/users/{id}',[UserController::class,'userProfile']);
 Route::get('/departments',[DepartmentController::class,'index']);

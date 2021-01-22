@@ -39,7 +39,7 @@ const routes = [
     {
         path:'/messages',
         component:Messages,
-        name:'Messages'
+        name:'messages'
     }
 ]
 

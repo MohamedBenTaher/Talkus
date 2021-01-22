@@ -10,6 +10,25 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
+    // cette fonction retourne le profile d'un utilisateur selon son id 
+    public function userProfile($id){
+        $user = User::find($id);
+        if($user){
+            return response()->json([
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'phone' => $user->phone,
+                'image' => $user->image,
+                'department' => $user->department
+            ]);
+        }
+         return response()->json([
+            'error' => "404 | UTILISATEUR INTROUVABLE"
+        ]);
+    }
+
     public function Signup(Request $request){
 
         $user = User::create([
