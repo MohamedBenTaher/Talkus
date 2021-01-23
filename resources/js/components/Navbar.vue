@@ -52,7 +52,7 @@ export default {
             login:'/login',
             contacts:'/contacts',
             messages:'/messages',
-            profile:`/users/${User.getUser().id}`,
+            profile:`/users/${User.isLogged().id}`,
             logged:User.isLogged().logged,
             user_name:User.isLogged().name,
             isAdmin: User.isAdmin()

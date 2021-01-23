@@ -2097,7 +2097,7 @@ __webpack_require__.r(__webpack_exports__);
       login: '/login',
       contacts: '/contacts',
       messages: '/messages',
-      profile: "/users/".concat(User.getUser().id),
+      profile: "/users/".concat(User.isLogged().id),
       logged: User.isLogged().logged,
       user_name: User.isLogged().name,
       isAdmin: User.isAdmin()
