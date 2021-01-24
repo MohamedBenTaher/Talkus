@@ -1,5 +1,5 @@
 <template>
-     <nav class="navbar navbar-expand-lg navbar-light bg-info">
+     <nav class="navbar navbar-expand-lg navbar-light bg-info" >
   <router-link class="navbar-brand" :to="home" v-if="logged">Talkus</router-link>
   <router-link class="navbar-brand" :to="login" v-else>Talkus</router-link>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,9 +9,11 @@
     <ul class="navbar-nav">
       <li class="nav-item active">
         <router-link class="nav-link" :to="home" v-if="logged">Actualities</router-link>
+     
       </li>
       <li class="nav-item active">
         <router-link class="nav-link" :to="signup" v-if="!logged">Signup</router-link>
+        
       </li>
       <li class="nav-item active">
         <router-link class="nav-link" :to="login" v-if="!logged">Login</router-link>
@@ -28,7 +30,8 @@
       <li class="nav-item active my-2 my-lg-0" style="float:right">
         <a class="nav-link" style="cursor:pointer" v-if="logged" @click="userLogout" >Deconnexion</a>
       </li> -->
-      <li class="nav-item dropdown" v-if="logged">
+      <div v-if="logged">
+          <li class="nav-item dropdown" >
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{user_name.toUpperCase()}}
         </a>
@@ -37,6 +40,8 @@
           <a class="dropdown-item" style="cursor:pointer" @click="userLogout"><i class="fas fa-sign-out-alt mr-1"></i>Logout</a>
         </div>
       </li>
+      </div>
+    
     </ul>
   </div>
 </nav>
@@ -52,7 +57,7 @@ export default {
             login:'/login',
             contacts:'/contacts',
             messages:'/messages',
-            profile:`/users/${User.getUser().id}`,
+            profile:`/users/${User.isLogged().id}`,
             logged:User.isLogged().logged,
             user_name:User.isLogged().name,
             isAdmin: User.isAdmin()
