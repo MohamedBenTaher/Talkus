@@ -24,6 +24,9 @@
       <li class="nav-item active ml-1">
         <router-link class="nav-link" :to="messages" v-if="logged">My Messages</router-link>
       </li>
+      <li class="nav-item active ml-1">
+        <router-link class="nav-link" to="/" v-if="logged">Add a  post </router-link>
+      </li>
     <!--  <li class="nav-item active mr-1">
         <router-link class="nav-link" :to="messages" v-if="logged">{{user_name.toUpperCase()}} </router-link>
       </li>

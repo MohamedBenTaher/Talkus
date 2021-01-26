@@ -12,7 +12,7 @@ Vue.use(vueRouter);
 
 const routes = [
     {
-        path:'/',
+        path:'/posts',
         component:Actualities,
         name:'home' 
     },

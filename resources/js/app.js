@@ -7,6 +7,7 @@
 require('./bootstrap');
 import User from './helpers/User';
 
+
 window.Vue = require('vue').default;
 window.User = User;
 
@@ -23,6 +24,7 @@ window.User = User;
 
 Vue.component('home-component', require('./Home.vue').default);
 import router from './router/router.js';
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -1881,7 +1881,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      posts: []
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.axios.get('http://localhost:8000/api/posts').then(function (response) {
+      _this.posts = response.data;
+    });
+  },
+  methods: {
+    deletePost: function deletePost(id) {
+      var _this2 = this;
+
+      this.axios["delete"]("http://localhost:8000/api/post/delete/".concat(id)).then(function (response) {
+        var i = _this2.posts.map(function (item) {
+          return item.id;
+        }).indexOf(id); // find index of your object
+
+
+        _this2.posts.splice(i, 1);
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -2044,6 +2093,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
+//
+//
+//
 //
 //
 //
@@ -2514,7 +2566,7 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_6__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_7__.default);
 var routes = [{
-  path: '/',
+  path: '/posts',
   component: _components_Actualities_vue__WEBPACK_IMPORTED_MODULE_0__.default,
   name: 'home'
 }, {
@@ -38968,16 +39020,65 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container " }, [
+    _c("div", { staticClass: "row my-4" }, [
+      _c("div", { staticClass: "col md-8 " }),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "card" },
+        [
+          _c("div", { staticClass: "card-header" }, [_vm._v("Posts")]),
+          _vm._v(" "),
+          _vm._l(_vm.posts.data, function(post, index) {
+            return _c("div", { key: index, staticClass: "card-body" }, [
+              _c("div", { staticClass: "media" }, [
+                _c("div", { staticClass: "media-body" }, [
+                  _c("h3", [_vm._v(_vm._s(post.title))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "lead" }, [
+                  _vm._v(_vm._s(post.content))
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "btn-group", attrs: { role: "group" } },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { to: { name: "edit", params: { id: post.id } } }
+                    },
+                    [_vm._v("Edit\n                      ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      on: {
+                        click: function($event) {
+                          return _vm.deletePost(post.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Delete")]
+                  )
+                ],
+                1
+              )
+            ])
+          })
+        ],
+        2
+      )
+    ])
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("p", [_vm._v("\n        Fil d'acualité\n    ")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -39312,6 +39413,21 @@ var render = function() {
                       "router-link",
                       { staticClass: "nav-link", attrs: { to: _vm.messages } },
                       [_vm._v("My Messages")]
+                    )
+                  : _vm._e()
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "li",
+              { staticClass: "nav-item active ml-1" },
+              [
+                _vm.logged
+                  ? _c(
+                      "router-link",
+                      { staticClass: "nav-link", attrs: { to: "/" } },
+                      [_vm._v("Add a  post ")]
                     )
                   : _vm._e()
               ],
