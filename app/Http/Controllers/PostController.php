@@ -15,9 +15,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   ;
-         $id_contact=contact::get('id');
-         $posts=post::all()->where('user_id')->in($id_contact)->latest()->paginate(8);
+    {   
+         //$id_contact=contact::get('id');
+         $posts=post::latest()->paginate(8);
          return response()->json($posts);
     }
 
