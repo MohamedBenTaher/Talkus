@@ -15,7 +15,6 @@
                               </select>
                             <input v-model="password" id="password" type="password" placeholder="mot de passe" required class="form-control my-1">
                             <p style="cursor:pointer;color:blue;float:right" @click="showAndHidden">show password</p>
-                            <p id="err" style="color:red"></p>
                             <center class="pt-2"><button class="btn btn-block btn-primary" @click="inscription">S'inscrire</button></center>
                         </div>
                     </div>
@@ -26,6 +25,8 @@
 </template>
 
 <script>
+    import toastr from 'toastr';
+    import 'toastr/build/toastr.css';
 export default {
     data(){
         return{
@@ -61,8 +62,7 @@ export default {
         },
         inscription(){
             if(!this.name || !this.password || !this.email || !this.phone || !this.department_id){
-                let err = document.getElementById('err');
-                err.innerHTML = "Veulliez remplir tous les champs necessaire."
+                toastr.warning('Veulliez remplir tous les champs necessaire.')
                 return;
             }
             axios.post('/api/users/signup',{name:this.name,email:this.email,password:this.password,phone:this.phone,department_id:this.department_id})
@@ -71,6 +71,7 @@ export default {
                      User.storeUser(JSON.stringify(res.data));
                      this.$router.push('/')
                      this.refresh()
+                     toastr.success('Bienvenue à Talkus','Vous etes maintenant inscrit')
                  })
                  .catch(err => console.log(err))
         },

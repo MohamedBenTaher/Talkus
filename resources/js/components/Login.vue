@@ -10,7 +10,6 @@
                             <input v-model="email" type="email" placeholder="email valide..." required class="form-control my-1">
                             <input v-model="password" id="password" type="password" placeholder="mot de passe" required class="form-control my-1">
                             <p style="cursor:pointer;color:blue;float:right" @click="showAndHidden">show password</p>
-                            <p id="err" style="color:red" ></p>
                             <center class="pt-2"><button class="btn btn-block btn-primary" @click="login">Connection</button></center>
                             <small class="mt-2" style="float:right">Vous n'etes pas encore inscrit ? 
                               <router-link style="text-decoration: underline" :to="signup">s'inscrire</router-link>
@@ -25,6 +24,8 @@
 </template>
 
 <script>
+    import toastr from 'toastr';
+    import 'toastr/build/toastr.css';
 export default {
     data(){
         return{
@@ -51,9 +52,7 @@ export default {
         login(e){
             e.preventDefault();
             if(!this.password || !this.email){
-                let err = document.getElementById('err');
-                err.innerHTML = "Veulliez remplir tous les champs necessaire."
-                return;
+                toastr.warning('Veulliez remplir tous les champs necessaire')
             }
             axios.post('/api/users/login',{email:this.email,password:this.password})
                  .then(res => {
@@ -65,8 +64,7 @@ export default {
                        this.refresh();
                      }
                      else{
-                      let err = document.getElementById('err');
-                      err.innerHTML = res.data.error
+                      toastr.warning(res.data.error)
                      }
                  })
                  .catch(err => console.log(err))
