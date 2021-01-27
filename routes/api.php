@@ -24,8 +24,8 @@ Route::post('/users/signup',[UserController::class,'Signup']);
 Route::post('/users/login',[UserController::class,'Login']);
 Route::get('/users/{id}',[UserController::class,'userProfile']);
 Route::get('/departments',[DepartmentController::class,'index']);
-Route::get('/posts',[PostControllerController::class,'index']);
-Route::group(['prefix' => 'post'], function () {
+Route::get('/Actualities',[PostControllerController::class,'index']);
+Route::group(['prefix' => 'Actualities'], function () {
     Route::post('add', 'PostController@add');
     Route::get('edit/{id}', 'PostController@edit');
     Route::post('update/{id}', 'PostController@update');

@@ -1903,6 +1903,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2566,7 +2568,7 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_6__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_7__.default);
 var routes = [{
-  path: '/posts',
+  path: '/Actualities',
   component: _components_Actualities_vue__WEBPACK_IMPORTED_MODULE_0__.default,
   name: 'home'
 }, {
@@ -39029,6 +39031,8 @@ var render = function() {
         { staticClass: "card" },
         [
           _c("div", { staticClass: "card-header" }, [_vm._v("Posts")]),
+          _vm._v(" "),
+          _c("h1", [_vm._v("posts")]),
           _vm._v(" "),
           _vm._l(_vm.posts.data, function(post, index) {
             return _c("div", { key: index, staticClass: "card-body" }, [
