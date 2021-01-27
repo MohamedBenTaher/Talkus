@@ -25,9 +25,7 @@ Route::post('/users/login',[UserController::class,'Login']);
 Route::get('/users/{id}',[UserController::class,'userProfile']);
 Route::get('/departments',[DepartmentController::class,'index']);
 Route::get('/Actualities',[PostControllerController::class,'index']);
-Route::group(['prefix' => 'Actualities'], function () {
-    Route::post('add', 'PostController@add');
+ /*Route::post('add', 'PostController@add');
     Route::get('edit/{id}', 'PostController@edit');
     Route::post('update/{id}', 'PostController@update');
-    Route::delete('delete/{id}', 'PostController@delete');
-});
+    Route::delete('delete/{id}', 'PostController@delete');*/
