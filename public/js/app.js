@@ -1940,9 +1940,77 @@ __webpack_require__.r(__webpack_exports__);
 /*!***************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Contacts.vue?vue&type=script&lang=js& ***!
   \***************************************************************************************************************************************************************************************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\xampp\\htdocs\\Talkus\\resources\\js\\components\\Contacts.vue: Unexpected token (14:15)\n\n\u001b[0m \u001b[90m 12 | \u001b[39m  data() {\u001b[0m\n\u001b[0m \u001b[90m 13 | \u001b[39m    \u001b[36mreturn\u001b[39m {\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 14 | \u001b[39m      contacts \u001b[33m=\u001b[39m \u001b[32m''\u001b[39m \u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 15 | \u001b[39m    }\u001b[0m\n\u001b[0m \u001b[90m 16 | \u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 17 | \u001b[39m\u001b[0m\n    at Parser._raise (C:\\xampp\\htdocs\\Talkus\\node_modules\\@babel\\parser\\lib\\index.js:748:17)\n    at Parser.raiseWithData (C:\\xampp\\htdocs\\Talkus\\node_modules\\@babel\\parser\\lib\\index.js:741:17)\n    at Parser.raise (C:\\xampp\\htdocs\\Talkus\\node_modules\\@babel\\parser\\lib\\index.js:735:17)\n    at Parser.unexpected (C:\\xampp\\htdocs\\Talkus\\node_modules\\@babel\\parser\\lib\\index.js:9101:16)\n    at Parser.checkExpressionErrors (C:\\xampp\\htdocs\\Talkus\\node_modules\\@babel\\parser\\lib\\index.js:9189:12)\n    at Parser.parseMaybeAssign (C:\\xampp\\htdocs\\Talkus\\node_modules\\@babel\\parser\\lib\\index.js:9953:12)\n    at Parser.parseExpressionBase (C:\\xampp\\htdocs\\Talkus\\node_modules\\@babel\\parser\\lib\\index.js:9871:23)\n    at C:\\xampp\\htdocs\\Talkus\\node_modules\\@babel\\parser\\lib\\index.js:9865:39\n    at Parser.allowInAnd (C:\\xampp\\htdocs\\Talkus\\node_modules\\@babel\\parser\\lib\\index.js:11541:16)\n    at Parser.parseExpression (C:\\xampp\\htdocs\\Talkus\\node_modules\\@babel\\parser\\lib\\index.js:9865:17)\n    at Parser.parseReturnStatement (C:\\xampp\\htdocs\\Talkus\\node_modules\\@babel\\parser\\lib\\index.js:12045:28)\n    at Parser.parseStatementContent (C:\\xampp\\htdocs\\Talkus\\node_modules\\@babel\\parser\\lib\\index.js:11724:21)\n    at Parser.parseStatement (C:\\xampp\\htdocs\\Talkus\\node_modules\\@babel\\parser\\lib\\index.js:11676:17)\n    at Parser.parseBlockOrModuleBlockBody (C:\\xampp\\htdocs\\Talkus\\node_modules\\@babel\\parser\\lib\\index.js:12258:25)\n    at Parser.parseBlockBody (C:\\xampp\\htdocs\\Talkus\\node_modules\\@babel\\parser\\lib\\index.js:12249:10)\n    at Parser.parseBlock (C:\\xampp\\htdocs\\Talkus\\node_modules\\@babel\\parser\\lib\\index.js:12233:10)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      contacts: '',
+      error: ''
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get('http://localhost:8000/api/contacts/' + User.isLogged().id).then(function (response) {
+      if (response.data.error) {
+        _this.error = response.data.error;
+      } else {
+        _this.contacts = response.data.users;
+      }
+
+      console.log(_this.error);
+    })["catch"](function (err) {
+      return console.log(err);
+    });
+  },
+  methods: {
+    redirect: function redirect(id) {
+      this.$router.push('/users/' + id);
+      this.$router.go();
+    }
+  }
+});
 
 /***/ }),
 
@@ -38993,9 +39061,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Contacts_vue_vue_type_template_id_6766143e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Contacts.vue?vue&type=template&id=6766143e& */ "./resources/js/components/Contacts.vue?vue&type=template&id=6766143e&");
 /* harmony import */ var _Contacts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Contacts.vue?vue&type=script&lang=js& */ "./resources/js/components/Contacts.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _Contacts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _Contacts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -39265,11 +39330,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Contacts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Contacts.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Contacts.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Contacts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Contacts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Contacts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Contacts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Contacts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default())); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Contacts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -39639,18 +39700,102 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "album py-5 bg-light" }, [
+    _vm.error
+      ? _c("div", { staticClass: "container" }, [
+          _c("h3", [_vm._v(_vm._s(_vm.error))])
+        ])
+      : _c(
+          "div",
+          { staticClass: "container" },
+          _vm._l(_vm.contacts, function(contact, index) {
+            return _c("div", { key: index, staticClass: "col" }, [
+              _c("div", { staticClass: "card shadow-sm" }, [
+                _c(
+                  "svg",
+                  {
+                    staticClass: "bd-placeholder-img card-img-top",
+                    attrs: {
+                      width: "100%",
+                      height: "225",
+                      xmlns: "http://www.w3.org/2000/svg",
+                      role: "img",
+                      "aria-label": "Placeholder: Thumbnail",
+                      preserveAspectRatio: "xMidYMid slice",
+                      focusable: "false"
+                    }
+                  },
+                  [
+                    _c("title", [_vm._v("Placeholder")]),
+                    _c("rect", {
+                      attrs: { width: "100%", height: "100%", fill: "#55595c" }
+                    }),
+                    _c(
+                      "text",
+                      {
+                        attrs: {
+                          x: "50%",
+                          y: "50%",
+                          fill: "#eceeef",
+                          dy: ".3em"
+                        }
+                      },
+                      [_vm._v("Thumbnail")]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("p", { staticClass: "card-text" }, [
+                    _vm._v(_vm._s(contact[0].name))
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "d-flex justify-content-between align-items-center"
+                    },
+                    [
+                      _c("div", { staticClass: "btn-group" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-outline-secondary",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.redirect(contact[0].id)
+                              }
+                            }
+                          },
+                          [_vm._v("View")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-outline-secondary",
+                            attrs: { type: "button" }
+                          },
+                          [_vm._v("Edit")]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("small", { staticClass: "text-muted" }, [
+                        _vm._v("9 mins")
+                      ])
+                    ]
+                  )
+                ])
+              ])
+            ])
+          }),
+          0
+        )
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("p", [_vm._v("\n        Liste de Mes Contacts\n    ")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

@@ -9,9 +9,10 @@ use Illuminate\Support\Facades\DB;
 class ContactController extends Controller
 {   public function index($id){
     $users_rep = DB::table('user_contact')->where('user_id', $id)->select('contact_id')->get();
-    if(!$users_rep) return response()->json([
+    if($users_rep->isEmpty()){  return response()->json([
         'error' =>"vouz n'avez pas encore d'amies sur notre platfrome "
     ]);
+    }
     else{ 
     
     $n = $users_rep->count();
