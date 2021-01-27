@@ -39,15 +39,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        //Contact::create([
-           /* 'id' => $user->id,
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'department_id' => $request->department_id,
-            'password' => Hash::make($request->password)
-        ]);*/
-
+   
         return response()->json([
             'logged' => true,
             'id' => $user->id,

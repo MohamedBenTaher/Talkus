@@ -16,8 +16,8 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    public function contacts(){
-        return $this->hasMany(Contact::class);
+    public function users(){
+        return $this->hasMany(User::class);
     }
 
     public function department(){

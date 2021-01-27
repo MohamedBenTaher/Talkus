@@ -7,7 +7,23 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ContactController extends Controller
-{
+{   public function index($id){
+    $users_rep = DB::table('user_contact')->where('user_id', $id)->select('contact_id')->get();
+    if(!$users_rep) return response()->json([
+        'error' =>"vouz n'avez pas encore d'amies sur notre platfrome "
+    ]);
+    else{ 
+    
+    $n = $users_rep->count();
+    for ($i = 0; $i < $users_rep->count(); $i++) {
+        foreach ($users_rep[$i] as $contact_id) {
+            $users[$i] = DB::table('users')->where('id', $contact_id)->get();
+        }
+    }
+    return response()->json(compact('users', 'n'));
+    }
+    
+    }
     public function add(Request $request)
     {
         $data = $request->input();
@@ -77,3 +93,4 @@ class ContactController extends Controller
             //return redirect('repertory')->with('success');
         }
     }
+}
