@@ -1,9 +1,11 @@
 <template>
+
   <div class="container ">
     <div class="row my-4">
       <div class="col md-8 "></div>
       <div class="card">
         <div class="card-header">Posts</div>
+      <h1>posts</h1>
         <div class="card-body" v-for="(post,index) in posts.data"
         :key="index">
         <div class="media">

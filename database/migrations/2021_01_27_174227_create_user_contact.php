@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserContactTable extends Migration
+class CreateUserContact extends Migration
 {
     /**
      * Run the migrations.
@@ -15,8 +15,8 @@ class CreateUserContactTable extends Migration
     {
         Schema::create('user_contact', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('contact_id')->constrained();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('contact_id')->constrained('users');
             $table->timestamps();
         });
     }

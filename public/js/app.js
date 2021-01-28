@@ -1903,6 +1903,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1953,7 +1955,61 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      contacts: '',
+      error: ''
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get('http://localhost:8000/api/contacts/' + User.isLogged().id).then(function (response) {
+      if (response.data.error) {
+        _this.error = response.data.error;
+      } else {
+        _this.contacts = response.data.users;
+      }
+
+      console.log(_this.error);
+    })["catch"](function (err) {
+      return console.log(err);
+    });
+  },
+  methods: {
+    redirect: function redirect(id) {
+      this.$router.push('/users/' + id); //this.$router.go();
+    }
+  }
+});
 
 /***/ }),
 
@@ -2571,7 +2627,7 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_6__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_7__.default);
 var routes = [{
-  path: '/posts',
+  path: '/Actualities',
   component: _components_Actualities_vue__WEBPACK_IMPORTED_MODULE_0__.default,
   name: 'home'
 }, {
@@ -39570,6 +39626,8 @@ var render = function() {
         [
           _c("div", { staticClass: "card-header" }, [_vm._v("Posts")]),
           _vm._v(" "),
+          _c("h1", [_vm._v("posts")]),
+          _vm._v(" "),
           _vm._l(_vm.posts.data, function(post, index) {
             return _c("div", { key: index, staticClass: "card-body" }, [
               _c("div", { staticClass: "media" }, [
@@ -39641,18 +39699,102 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "album py-5 bg-light" }, [
+    _vm.error
+      ? _c("div", { staticClass: "container" }, [
+          _c("h3", [_vm._v(_vm._s(_vm.error))])
+        ])
+      : _c(
+          "div",
+          { staticClass: "container" },
+          _vm._l(_vm.contacts, function(contact, index) {
+            return _c("div", { key: index, staticClass: "col" }, [
+              _c("div", { staticClass: "card shadow-sm" }, [
+                _c(
+                  "svg",
+                  {
+                    staticClass: "bd-placeholder-img card-img-top",
+                    attrs: {
+                      width: "100%",
+                      height: "225",
+                      xmlns: "http://www.w3.org/2000/svg",
+                      role: "img",
+                      "aria-label": "Placeholder: Thumbnail",
+                      preserveAspectRatio: "xMidYMid slice",
+                      focusable: "false"
+                    }
+                  },
+                  [
+                    _c("title", [_vm._v("Placeholder")]),
+                    _c("rect", {
+                      attrs: { width: "100%", height: "100%", fill: "#55595c" }
+                    }),
+                    _c(
+                      "text",
+                      {
+                        attrs: {
+                          x: "50%",
+                          y: "50%",
+                          fill: "#eceeef",
+                          dy: ".3em"
+                        }
+                      },
+                      [_vm._v("Thumbnail")]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("p", { staticClass: "card-text" }, [
+                    _vm._v(_vm._s(contact[0].name))
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "d-flex justify-content-between align-items-center"
+                    },
+                    [
+                      _c("div", { staticClass: "btn-group" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-outline-secondary",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.redirect(contact[0].id)
+                              }
+                            }
+                          },
+                          [_vm._v("View")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-outline-secondary",
+                            attrs: { type: "button" }
+                          },
+                          [_vm._v("Edit")]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("small", { staticClass: "text-muted" }, [
+                        _vm._v("9 mins")
+                      ])
+                    ]
+                  )
+                ])
+              ])
+            ])
+          }),
+          0
+        )
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("p", [_vm._v("\n        Liste de Mes Contacts\n    ")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

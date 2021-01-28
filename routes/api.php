@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,10 +26,9 @@ Route::post('/users/signup',[UserController::class,'Signup']);
 Route::post('/users/login',[UserController::class,'Login']);
 Route::get('/users/{id}',[UserController::class,'userProfile']);
 Route::get('/departments',[DepartmentController::class,'index']);
-Route::get('/posts',[PostController::class,'index']);
-//Route::group(['prefix' => 'post'], function () {
- //   Route::post('add', 'PostController@add');
- //   Route::get('edit/{id}', 'PostController@edit');
- //   Route::post('update/{id}', 'PostController@update');
- //   Route::delete('delete/{id}', 'PostController@delete');
-//});
+Route::get('/Actualities/{id}',[PostController::class,'index']);
+Route::get('/contacts/{id}',[ContactController::class,'index']);
+ /*Route::post('add', 'PostController@add');
+    Route::get('edit/{id}', 'PostController@edit');
+    Route::post('update/{id}', 'PostController@update');
+    Route::delete('delete/{id}', 'PostController@delete');*/
