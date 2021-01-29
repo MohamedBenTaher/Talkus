@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -14,14 +15,12 @@ class ContactController extends Controller
     ]);
     }
     else{ 
-    
-    $n = $users_rep->count();
-    for ($i = 0; $i < $users_rep->count(); $i++) {
-        foreach ($users_rep[$i] as $contact_id) {
-            $users[$i] = DB::table('users')->where('id', $contact_id)->get();
+        $contacts_id = [];
+        foreach($users_rep as $id){
+            array_push($contacts_id,$id->contact_id);
         }
-    }
-    return response()->json(compact('users', 'n'));
+        $contacts = User::whereIn('id',$contacts_id)->select('id','name','email','phone','image')->get();
+        return response()->json($contacts);
     }
     
     }

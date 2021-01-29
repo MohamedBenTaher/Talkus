@@ -1972,21 +1972,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       contacts: '',
-      error: ''
+      error: '',
+      search: ""
     };
   },
   created: function created() {
@@ -1996,10 +1987,9 @@ __webpack_require__.r(__webpack_exports__);
       if (response.data.error) {
         _this.error = response.data.error;
       } else {
-        _this.contacts = response.data.users;
-      }
+        _this.contacts = response.data;
+      } //console.log(this.error);
 
-      console.log(_this.error);
     })["catch"](function (err) {
       return console.log(err);
     });
@@ -39699,100 +39689,86 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "album py-5 bg-light" }, [
-    _vm.error
-      ? _c("div", { staticClass: "container" }, [
-          _c("h3", [_vm._v(_vm._s(_vm.error))])
-        ])
-      : _c(
+  return _vm.error
+    ? _c("div", { staticClass: "container" }, [
+        _c("h3", [_vm._v(_vm._s(_vm.error))])
+      ])
+    : _c("div", { staticClass: "container mt-2" }, [
+        _c("div", { staticClass: "row md-auto my-5" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.search,
+                expression: "search"
+              }
+            ],
+            staticClass: "form-control sm",
+            attrs: { type: "text", placeholder: "rechercher un contact..." },
+            domProps: { value: _vm.search },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.search = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c(
           "div",
-          { staticClass: "container" },
+          { staticClass: "row" },
           _vm._l(_vm.contacts, function(contact, index) {
-            return _c("div", { key: index, staticClass: "col" }, [
-              _c("div", { staticClass: "card shadow-sm" }, [
-                _c(
-                  "svg",
-                  {
-                    staticClass: "bd-placeholder-img card-img-top",
-                    attrs: {
-                      width: "100%",
-                      height: "225",
-                      xmlns: "http://www.w3.org/2000/svg",
-                      role: "img",
-                      "aria-label": "Placeholder: Thumbnail",
-                      preserveAspectRatio: "xMidYMid slice",
-                      focusable: "false"
-                    }
-                  },
-                  [
-                    _c("title", [_vm._v("Placeholder")]),
-                    _c("rect", {
-                      attrs: { width: "100%", height: "100%", fill: "#55595c" }
-                    }),
-                    _c(
-                      "text",
-                      {
-                        attrs: {
-                          x: "50%",
-                          y: "50%",
-                          fill: "#eceeef",
-                          dy: ".3em"
-                        }
-                      },
-                      [_vm._v("Thumbnail")]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-body" }, [
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v(_vm._s(contact[0].name))
-                  ]),
-                  _vm._v(" "),
-                  _c(
+            return _c("div", { key: index, staticClass: "col-md-4" }, [
+              _vm.search == "" || contact.name === _vm.search
+                ? _c(
                     "div",
-                    {
-                      staticClass:
-                        "d-flex justify-content-between align-items-center"
-                    },
+                    { staticClass: "card", staticStyle: { width: "18rem" } },
                     [
-                      _c("div", { staticClass: "btn-group" }, [
+                      _c("img", {
+                        staticClass: "card-img-top",
+                        attrs: { src: contact.image, alt: "Card image cap" }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-body" }, [
+                        _c("h5", { staticClass: "card-title" }, [
+                          _vm._v(_vm._s(contact.name))
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "card-text" }, [
+                          _vm._v("EMAIL: " + _vm._s(contact.email))
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "card-text" }, [
+                          _vm._v("TEL: " + _vm._s(contact.phone))
+                        ]),
+                        _vm._v(" "),
                         _c(
-                          "button",
+                          "a",
                           {
-                            staticClass: "btn btn-sm btn-outline-secondary",
-                            attrs: { type: "button" },
+                            staticClass: "btn btn-info",
                             on: {
                               click: function($event) {
-                                return _vm.redirect(contact[0].id)
+                                return _vm.redirect(contact.id)
                               }
                             }
                           },
-                          [_vm._v("View")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-sm btn-outline-secondary",
-                            attrs: { type: "button" }
-                          },
-                          [_vm._v("Edit")]
+                          [_vm._v("Voir Profil")]
                         )
-                      ]),
-                      _vm._v(" "),
-                      _c("small", { staticClass: "text-muted" }, [
-                        _vm._v("9 mins")
                       ])
                     ]
                   )
-                ])
-              ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("hr")
             ])
           }),
           0
         )
-  ])
+      ])
 }
 var staticRenderFns = []
 render._withStripped = true
