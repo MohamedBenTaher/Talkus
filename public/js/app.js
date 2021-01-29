@@ -39722,9 +39722,9 @@ var render = function() {
           "div",
           { staticClass: "row" },
           _vm._l(_vm.contacts, function(contact, index) {
-            return _c("div", { key: index, staticClass: "col-md-4" }, [
-              _vm.search == "" || contact.name === _vm.search
-                ? _c(
+            return _vm.search == "" || contact.name.includes(_vm.search)
+              ? _c("div", { key: index, staticClass: "col-md-4" }, [
+                  _c(
                     "div",
                     { staticClass: "card", staticStyle: { width: "18rem" } },
                     [
@@ -39760,11 +39760,11 @@ var render = function() {
                         )
                       ])
                     ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _c("hr")
-            ])
+                  ),
+                  _vm._v(" "),
+                  _c("hr")
+                ])
+              : _vm._e()
           }),
           0
         )
