@@ -39705,7 +39705,10 @@ var render = function() {
               }
             ],
             staticClass: "form-control sm",
-            attrs: { type: "text", placeholder: "rechercher un contact..." },
+            attrs: {
+              type: "text",
+              placeholder: "rechercher par nom ou numéro de telephone"
+            },
             domProps: { value: _vm.search },
             on: {
               input: function($event) {
@@ -39722,7 +39725,9 @@ var render = function() {
           "div",
           { staticClass: "row" },
           _vm._l(_vm.contacts, function(contact, index) {
-            return _vm.search == "" || contact.name.includes(_vm.search)
+            return _vm.search == "" ||
+              contact.name.includes(_vm.search) ||
+              contact.phone.includes(_vm.search)
               ? _c("div", { key: index, staticClass: "col-md-4" }, [
                   _c(
                     "div",
