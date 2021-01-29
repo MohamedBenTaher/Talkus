@@ -39725,7 +39725,7 @@ var render = function() {
           "div",
           { staticClass: "row" },
           _vm._l(_vm.contacts, function(contact, index) {
-            return _vm.search == "" ||
+            return _vm.search.trim() === "" ||
               contact.name.includes(_vm.search) ||
               contact.phone.includes(_vm.search)
               ? _c("div", { key: index, staticClass: "col-md-4" }, [

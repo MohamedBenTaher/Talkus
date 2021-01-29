@@ -7,7 +7,7 @@
           <input type="text" class="form-control sm" placeholder="rechercher par nom ou numéro de telephone" v-model="search">
         </div>
       <div class="row">
-        <div class="col-md-4" v-for="(contact,index) in contacts" :key="index" v-if="search=='' || contact.name.includes(search) || contact.phone.includes(search)">
+        <div class="col-md-4" v-for="(contact,index) in contacts" :key="index" v-if="search.trim()==='' || contact.name.includes(search) || contact.phone.includes(search)">
           <div class="card" style="width: 18rem;">
             <img class="card-img-top" :src="contact.image" alt="Card image cap">
               <div class="card-body">
