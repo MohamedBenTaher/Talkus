@@ -11,10 +11,10 @@ class ContactController extends Controller
 {   public function index($id){
     $users_rep = DB::table('user_contact')->where('user_id', $id)->select('contact_id')->get();
     if($users_rep->isEmpty()){  return response()->json([
-        'error' =>"vouz n'avez pas encore d'amies sur notre platfrome "
+        'error' =>"Votre liste de contacts est vide. "
     ]);
     }
-    else{ 
+    else{
         $contacts_id = [];
         foreach($users_rep as $id){
             array_push($contacts_id,$id->contact_id);
@@ -22,7 +22,7 @@ class ContactController extends Controller
         $contacts = User::whereIn('id',$contacts_id)->select('id','name','email','phone','image')->get();
         return response()->json($contacts);
     }
-    
+
     }
     public function add(Request $request)
     {
@@ -32,51 +32,38 @@ class ContactController extends Controller
             $users = $users->keyBy('id');
             if (!empty($users->first()->id)) {
                 if ($users->first()->id == Auth::id()) {
-                    return print_r('You are trying to add yourself');
+                    return response()->json([
+                        'error' =>"Vous ne pouvez pas vous ajouter."
+                    ]);
 
                 } else {
                     $repertories = DB::table('repertories')->where('contact_id', $users->first()->id)->get();
                     if ($repertories->isNotEmpty()) {
-                        return print_r('Contact already on contact list');
+                        return response()->json([
+                            'error' =>"Le contact est déjà dans votre liste de contacts."
+                        ]);
                     } else {
                         if (DB::table('user_contact')->where('user_id', Auth::id())->count() >= 200) {
-                            return print_r('You have reached the maximum list of contacts');
+                            return response()->json([
+                                'error' =>"Vous avez atteint le nombre maximum de contacts dans votre liste de contacts."
+                            ]);
                         } else {
                             DB::table('user_contact')->insert(['user_ind' => Auth::id(), 'contact_id' => $users->first()->id]);
-                            return print_r('Contact added');
+                            return response()->json([
+                                'success' =>"Le contact a bien été ajouté dans votre liste de contacts."
+                            ]);
                         }
                     }
                 }
             } else {
-                return print_r('Contact not found');
+                return response()->json([
+                    'error' =>"Celui que vous cherchez à ajouter n'existe pas"
+                ]);
             }
         }
-        return print_r('Data did not pass');
-    }
-
-    public function append(Request $request)
-    {
-        $user = Auth::user();
-        $this->add($request);
-        return response()->json(compact('user'));
-        //return view('home',compact('user'));
-    }
-
-    public function display()
-    {
-        $users_rep = DB::table('user_contact')->where('user_id', Auth::id())->select('contact_id')->get();
-
-        if ($users_rep->isNotEmpty()) {
-
-            $n = $users_rep->count();
-            for ($i = 0; $i < $users_rep->count(); $i++) {
-                foreach ($users_rep[$i] as $contact_id) {
-                    $users[$i] = DB::table('users')->where('id', $contact_id)->get();
-                }
-            }
-            return response()->json(compact('users', 'n'));
-            //return view('user.repertory', compact('users', 'n'));
-        }
+        return response()->json([
+        'error' =>"Les informations n'ont pas pu être collectées"
+        ]);
     }
 
     public function remove(Request $request)
@@ -87,10 +74,12 @@ class ContactController extends Controller
 
             DB::table('user_contact')->where('user_id', Auth::id())->where('contact_id', $data['id'])->delete();
             return response()->json([
-                    'success' => 'The Contact has been successfully removed'
+                    'success' => 'Le contact a bien été supprimé'
                 ]
             );
-            //return redirect('repertory')->with('success');
         }
+        return response()->json([
+        'error' =>"Une erreur est survenue"
+        ]);
     }
 }
