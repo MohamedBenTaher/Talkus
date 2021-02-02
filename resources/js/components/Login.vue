@@ -52,7 +52,7 @@ export default {
         login(e){
             e.preventDefault();
             if(!this.password || !this.email){
-                toastr.warning('Veulliez remplir tous les champs necessaire')
+                return toastr.warning('Veulliez remplir tous les champs necessaire')
             }
             axios.post('/api/users/login',{email:this.email,password:this.password})
                  .then(res => {

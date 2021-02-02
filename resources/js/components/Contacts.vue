@@ -9,7 +9,7 @@
       <div class="row">
         <div class="col-md-4" v-for="(contact,index) in contacts" :key="index" v-if="search.trim()==='' || contact.name.includes(search) || contact.phone.includes(search)">
           <div class="card" style="width: 18rem;">
-            <img class="card-img-top" :src="contact.image" alt="Card image cap" style="height:20vw">
+            <img class="card-img-top" :src="contact.image" alt="Card image cap" style="height:14vw">
               <div class="card-body">
                 <h5 class="card-title">{{contact.name}}</h5>
                 <p class="card-text">EMAIL: {{contact.email}}</p>

@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-4" v-for="(user,index) in users.data" :key="index" v-if="search.trim()==='' || user.name.includes(search) || user.phone.includes(search)">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" :src="user.image" alt="Card image cap" >
+                <img class="card-img-top" :src="user.image" alt="Card image cap" style="height:14vw">
                 <div class="card-body">
                     <h5 class="card-title">{{user.name}}</h5>
                     <p class="card-text">EMAIL: {{user.email}}</p>

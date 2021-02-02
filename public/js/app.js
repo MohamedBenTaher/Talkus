@@ -2106,7 +2106,7 @@ __webpack_require__.r(__webpack_exports__);
       e.preventDefault();
 
       if (!this.password || !this.email) {
-        toastr__WEBPACK_IMPORTED_MODULE_0___default().warning('Veulliez remplir tous les champs necessaire');
+        return toastr__WEBPACK_IMPORTED_MODULE_0___default().warning('Veulliez remplir tous les champs necessaire');
       }
 
       axios.post('/api/users/login', {
@@ -40531,7 +40531,7 @@ var render = function() {
                     [
                       _c("img", {
                         staticClass: "card-img-top",
-                        staticStyle: { height: "20vw" },
+                        staticStyle: { height: "14vw" },
                         attrs: { src: contact.image, alt: "Card image cap" }
                       }),
                       _vm._v(" "),
@@ -41293,6 +41293,7 @@ var render = function() {
                 [
                   _c("img", {
                     staticClass: "card-img-top",
+                    staticStyle: { height: "14vw" },
                     attrs: { src: user.image, alt: "Card image cap" }
                   }),
                   _vm._v(" "),
