@@ -23,6 +23,8 @@ window.User = User;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('home-component', require('./Home.vue').default);
+Vue.component('pagination', require('laravel-vue-pagination'));
+
 import router from './router/router.js';
 
 

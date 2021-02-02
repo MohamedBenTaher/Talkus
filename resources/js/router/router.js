@@ -6,6 +6,7 @@ import Signup from '../components/Signup.vue';
 import Contacts from '../components/Contacts.vue';
 import User from '../components/User.vue';
 import Messages from '../components/Messages.vue';
+import Suggestion from '../components/Suggestion.vue';
 
 
 Vue.use(vueRouter);
@@ -40,6 +41,11 @@ const routes = [
         path:'/messages',
         component:Messages,
         name:'messages'
+    },
+    {
+        path:'/suggestion',
+        component:Suggestion,
+        name:'suggestion'
     }
 ]
 

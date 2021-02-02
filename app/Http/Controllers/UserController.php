@@ -6,6 +6,7 @@ use App\Models\Contact;
 use auth;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -45,6 +46,7 @@ class UserController extends Controller
             'name' => $user->name,
             'phone' => $user->phone,
             'department' => $user->department->name,
+            'department_id' => $user->department->id,
             'created_at' => $user->created_at,
             'admin' => $user->isAdmin
         ]);
@@ -59,11 +61,31 @@ class UserController extends Controller
             'logged' => true,
             'id' => auth()->user()->id,
             'name' => auth()->user()->name,
+            'department_id' => auth()->user()->department->id,
             'created_at' => auth()->user()->created_at,
             'admin' => auth()->user()->isAdmin
         ]);
         return response()->json([
             'error' => "email ou mot de passe erroné"
         ]);
+    }
+
+    public function getUsersByDepartment($user_id,$department_id) {
+
+        $users_rep = DB::table('user_contact')->where('user_id', $user_id)->select('contact_id')->get();
+        $contacts_id = [];
+        foreach($users_rep as $id){
+            array_push($contacts_id,$id->contact_id);
+        }
+        array_push($contacts_id,$user_id);
+        $users = User::where('department_id',$department_id)->whereNotIn('id',$contacts_id)->paginate(6);
+
+        if($users->isEmpty()){
+            return response()->json([
+                'error' => 'Vous avez aucune suggestion (il se peut que vous avez ajoutez tous les contacts de votre departement)'
+            ]);
+        }
+
+        return response()->json($users);
     }
 }
